@@ -13,7 +13,7 @@ X11LIB = /usr/X11R6/lib
 PKG_CONFIG = pkg-config
 
 # Uncomment this for the alpha patch / ALPHA_PATCH
-#XRENDER = -lXrender
+XRENDER = -lXrender
 
 # Uncomment this for the themed cursor patch / THEMED_CURSOR_PATCH
 #XCURSOR = -lXcursor
@@ -30,12 +30,16 @@ PKG_CONFIG = pkg-config
 # includes and libs, uncomment harfbuzz for the ligatures patch
 INCS = -I$(X11INC) \
        `$(PKG_CONFIG) --cflags fontconfig` \
-       `$(PKG_CONFIG) --cflags freetype2` \
-       $(LIGATURES_INC)
+       `$(PKG_CONFIG) --cflags freetype2`
+       # $(LIGATURES_INC)
+
+# `-Wl,-rpath=/usr/local/lib` needed to ensure st uses the libXft-bgra patch
+# every time the st binary is executed.
 LIBS = -L$(X11LIB) -lm -lrt -lX11 -lutil -lXft ${XRENDER} ${XCURSOR}\
+	   -Wl,-rpath=/usr/local/lib \
        `$(PKG_CONFIG) --libs fontconfig` \
-       `$(PKG_CONFIG) --libs freetype2` \
-       $(LIGATURES_LIBS)
+       `$(PKG_CONFIG) --libs freetype2`
+       # $(LIGATURES_LIBS)
 
 # flags
 STCPPFLAGS = -DVERSION=\"$(VERSION)\" -D_XOPEN_SOURCE=600

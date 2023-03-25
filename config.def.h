@@ -5,12 +5,11 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+static char *font = "JetBrains Mono:pixelsize=20:style=medium:antialias=true:autohint=true";
 #if FONT2_PATCH
 /* Spare fonts */
 static char *font2[] = {
-/*	"Inconsolata for Powerline:pixelsize=12:antialias=true:autohint=true", */
-/*	"Hack Nerd Font Mono:pixelsize=11:antialias=true:autohint=true", */
+    "Noto Color Emoji:pixelsize=10:style=regular:antialias=true:autohint=true"
 };
 #endif // FONT2_PATCH
 
@@ -102,7 +101,7 @@ static uint su_timeout = 200;
  * blinking timeout (set to 0 to disable blinking) for the terminal blinking
  * attribute.
  */
-static unsigned int blinktimeout = 800;
+static unsigned int blinktimeout = 600;
 
 /*
  * thickness of underline and bar cursors
@@ -116,11 +115,11 @@ static unsigned int cursorthickness = 2;
  *    Bold affects lines thickness if boxdraw_bold is not 0. Italic is ignored.
  * 0: disable (render all U25XX glyphs normally from the font).
  */
-const int boxdraw = 0;
-const int boxdraw_bold = 0;
+const int boxdraw = 1;
+const int boxdraw_bold = 1;
 
 /* braille (U28XX):  1: render as adjacent "pixels",  0: use font */
-const int boxdraw_braille = 0;
+const int boxdraw_braille = 1;
 #endif // BOXDRAW_PATCH
 
 /*
@@ -147,49 +146,49 @@ char *termname = "st-256color";
  *
  *	stty tabs
  */
-unsigned int tabspaces = 8;
+unsigned int tabspaces = 4;
 
 #if ALPHA_PATCH
 /* bg opacity */
-float alpha = 0.8;
+float alpha = 0.84;
 #if ALPHA_GRADIENT_PATCH
 float grad_alpha = 0.54; //alpha value that'll change
 float stat_alpha = 0.46; //constant alpha value that'll get added to grad_alpha
 #endif // ALPHA_GRADIENT_PATCH
 #if ALPHA_FOCUS_HIGHLIGHT_PATCH
-float alphaUnfocused = 0.6;
+float alphaUnfocused = 0.83;
 #endif // ALPHA_FOCUS_HIGHLIGHT_PATCH
 #endif // ALPHA_PATCH
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
+	"#2e3436", // "black",
+	"#cc0000", // "red3",
+	"#4e9a06", // "green3",
+	"#c4a000", // "yellow3",
+	"#3465a4", // "blue2",
+	"#75507b", // "magenta3",
+	"#06989a", // "cyan3",
+	"#d3d7cf", // "gray90",
 
 	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
+	"#2e3436", // "gray50",
+	"#cc0000", // "red",
+	"#4e9a06", // "green",
+	"#c4a000", // "yellow",
+	"#3465a4", // "#5c5cff",
+	"#75507b", // "magenta",
+	"#06989a", // "cyan",
+	"#d3d7cf", // "white",
 
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
-	"#add8e6", /* 256 -> cursor */
+	"#ffffff", /* 256 -> cursor */
 	"#555555", /* 257 -> rev cursor*/
-	"#000000", /* 258 -> bg */
-	"#e5e5e5", /* 259 -> fg */
+	"#1d1f21", /* 258 -> bg */
+	"#d3d7cf", /* 259 -> fg */
 };
 
 
@@ -198,8 +197,8 @@ static const char *colorname[] = {
  * foreground, background, cursor, reverse cursor
  */
 #if ALPHA_PATCH && ALPHA_FOCUS_HIGHLIGHT_PATCH
-unsigned int defaultbg = 0;
-unsigned int bg = 17, bgUnfocused = 16;
+unsigned int defaultbg = 258;
+unsigned int bg = 258, bgUnfocused = 258;
 #else
 unsigned int defaultbg = 258;
 #endif // ALPHA_FOCUS_HIGHLIGHT_PATCH
